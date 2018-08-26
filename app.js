@@ -9,8 +9,8 @@ Rules of the game:
 */
 
 const scores = [0, 0]
-const roundScore = 0
-const activePlayer = 1
+let roundScore = 0
+let activePlayer = 1
 
 // // store current player's score as a variable
 // const x = document.querySelector('#score-' + activePlayer).innerHTML
@@ -23,7 +23,6 @@ document.getElementById('current-1').textContent = '0'
 document.getElementById('score-2').textContent = '0'
 document.getElementById('current-2').textContent = '0'
 
-
 document.querySelector('.btn-roll').addEventListener('click', function () {
   // Random number between 1 & 6
   let dice = Math.floor(Math.random() * 6) + 1
@@ -33,6 +32,20 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
   diceDom.style.display = 'block'
   diceDom.src = 'dice-' + dice + '.png'
 
-  // Update round score if dice does not roll 1
-  document.getElementById('current-1').textContent = dice
+  // Update round score of active player, unless 1 is rolled - then switch active player
+  if (dice !== 1) {
+    roundScore += dice
+    document.querySelector('#current-' + activePlayer).textContent = roundScore
+  } else {
+    activePlayer === 1 ? activePlayer = 2 : activePlayer = 1
+    roundScore = 0
+    document.getElementById('current-1').textContent = '0'
+    document.getElementById('current-2').textContent = '0'
+
+    document.querySelector('.player-1-panel').classList.toggle('active')
+    document.querySelector('.player-2-panel').classList.toggle('active')
+
+    document.querySelector('.dice').style.display = 'none'
+
+  }
 })
