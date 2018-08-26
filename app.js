@@ -8,9 +8,9 @@ Rules of the game:
 - First player to reach 60 wins!
 */
 
-const scores = [0, 0]
+let scores = [0, 0]
 let roundScore = 0
-let activePlayer = 1
+let activePlayer = 0
 
 // // store current player's score as a variable
 // const x = document.querySelector('#score-' + activePlayer).innerHTML
@@ -18,10 +18,10 @@ let activePlayer = 1
 // hide dice class at beginning of game
 document.querySelector('.dice').style.display = 'none'
 
+document.getElementById('score-0').textContent = '0'
+document.getElementById('current-0').textContent = '0'
 document.getElementById('score-1').textContent = '0'
 document.getElementById('current-1').textContent = '0'
-document.getElementById('score-2').textContent = '0'
-document.getElementById('current-2').textContent = '0'
 
 document.querySelector('.btn-roll').addEventListener('click', function () {
   // Random number between 1 & 6
@@ -37,15 +37,36 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
     roundScore += dice
     document.querySelector('#current-' + activePlayer).textContent = roundScore
   } else {
-    activePlayer === 1 ? activePlayer = 2 : activePlayer = 1
-    roundScore = 0
-    document.getElementById('current-1').textContent = '0'
-    document.getElementById('current-2').textContent = '0'
-
-    document.querySelector('.player-1-panel').classList.toggle('active')
-    document.querySelector('.player-2-panel').classList.toggle('active')
-
-    document.querySelector('.dice').style.display = 'none'
-
+    switchPlayer()
   }
 })
+
+document.querySelector('.btn-hold').addEventListener('click', function () {
+  // Add player's current score to total score
+  scores[activePlayer] += roundScore
+
+  // Update Total Score
+  document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer]
+
+  // Check if player won game
+  if (scores[activePlayer] >= 20) {
+    document.querySelector('#name-' + activePlayer).textContent = 'WINNER'
+    document.querySelector('.dice').style.display = 'none'
+    document.querySelector('player-' + activePlayer + '-panel').classList.add('winner')
+  } else {
+    switchPlayer()
+  }
+})
+
+// switch active player
+function switchPlayer () {
+  activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
+  roundScore = 0
+  document.getElementById('current-0').textContent = '0'
+  document.getElementById('current-1').textContent = '0'
+
+  document.querySelector('.player-0-panel').classList.toggle('active')
+  document.querySelector('.player-1-panel').classList.toggle('active')
+
+  document.querySelector('.dice').style.display = 'none'
+}
