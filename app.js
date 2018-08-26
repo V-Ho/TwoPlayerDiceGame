@@ -12,13 +12,27 @@ const scores = [0, 0]
 const roundScore = 0
 const activePlayer = 1
 
-const dice = Math.floor(Math.random() * 5) + 1 // random number between 1 & 6
-
-// use querySelector to change content of selectors
-document.querySelector('#current-' + activePlayer).textContent = dice
-
-// store  current player's score as a variable
-const x = document.querySelector('#score-' + activePlayer).innerHTML
+// // store current player's score as a variable
+// const x = document.querySelector('#score-' + activePlayer).innerHTML
 
 // hide dice class at beginning of game
 document.querySelector('.dice').style.display = 'none'
+
+document.getElementById('score-1').textContent = '0'
+document.getElementById('current-1').textContent = '0'
+document.getElementById('score-2').textContent = '0'
+document.getElementById('current-2').textContent = '0'
+
+
+document.querySelector('.btn-roll').addEventListener('click', function () {
+  // Random number between 1 & 6
+  let dice = Math.floor(Math.random() * 6) + 1
+
+  // Display corresponding dice image for number rolled
+  let diceDom = document.querySelector('.dice')
+  diceDom.style.display = 'block'
+  diceDom.src = 'dice-' + dice + '.png'
+
+  // Update round score if dice does not roll 1
+  document.getElementById('current-1').textContent = dice
+})
