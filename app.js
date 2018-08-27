@@ -8,44 +8,48 @@ Rules of the game:
 - First player to reach 60 wins!
 */
 
-let scores = [0, 0]
-let roundScore = 0
-let activePlayer = 0
+let scores, roundScore, activePlayer, gamePlaying
 
 startGame()
 
 document.querySelector('.btn-roll').addEventListener('click', function () {
-  // Random number between 1 & 6
-  let dice = Math.floor(Math.random() * 6) + 1
+  if (gamePlaying) {
+    // Random number between 1 & 6
+    let dice = Math.floor(Math.random() * 6) + 1
 
-  // Display corresponding dice image for number rolled
-  let diceDom = document.querySelector('.dice')
-  diceDom.style.display = 'block'
-  diceDom.src = 'dice-' + dice + '.png'
+    // Display corresponding dice image for number rolled
+    let diceDom = document.querySelector('.dice')
+    diceDom.style.display = 'block'
+    diceDom.src = 'dice-' + dice + '.png'
 
-  // Update round score of active player, unless 1 is rolled - then switch active player
-  if (dice !== 1) {
-    roundScore += dice
-    document.querySelector('#current-' + activePlayer).textContent = roundScore
-  } else {
-    switchPlayer()
+    // Update round score of active player, unless 1 is rolled - then switch active player
+    if (dice !== 1) {
+      roundScore += dice
+      document.querySelector('#current-' + activePlayer).textContent = roundScore
+    } else {
+      switchPlayer()
+    }
   }
 })
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
-  // Add player's current score to total score
-  scores[activePlayer] += roundScore
+  if (gamePlaying) {
+    // Add player's current score to total score
+    scores[activePlayer] += roundScore
 
-  // Update Total Score
-  document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer]
+    // Update Total Score
+    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer]
 
-  // Check if player won game
-  if (scores[activePlayer] >= 20) {
-    document.querySelector('#name-' + activePlayer).textContent = 'WINNER'
-    document.querySelector('.dice').style.display = 'none'
-    document.querySelector('player-' + activePlayer + '-panel').classList.add('winner')
-  } else {
-    switchPlayer()
+    // Check if player won game
+    if (scores[activePlayer] >= 20) {
+      document.querySelector('#name-' + activePlayer).textContent = 'WINNER'
+      document.querySelector('.dice').style.display = 'none'
+      document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
+      document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active')
+      gamePlaying = false // set state variable to false
+    } else {
+      switchPlayer()
+    }
   }
 })
 
@@ -68,6 +72,7 @@ function startGame () {
   scores = [0, 0]
   roundScore = 0
   activePlayer = 0
+  gamePlaying = true
 
   // hide dice class at beginning of game
   document.querySelector('.dice').style.display = 'none'
