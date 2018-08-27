@@ -123,7 +123,7 @@ button:focus {
 }
 
 i {
-    color: rgb(32, 178, 170)
+    color: rgb(32, 178, 170);
     display: inline-block;
     margin-right: 15px;
     font-size: 32px;
