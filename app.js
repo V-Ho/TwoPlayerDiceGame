@@ -8,7 +8,7 @@ Rules of the game:
 - First player to reach 60 wins!
 */
 
-let scores, roundScore, activePlayer, gamePlaying
+let totalScores, currentScore, activePlayer, gamePlaying
 
 startGame()
 
@@ -24,8 +24,8 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 
     // Update round score of active player, unless 1 is rolled - then switch active player
     if (dice !== 1) {
-      roundScore += dice
-      document.querySelector('#current-' + activePlayer).textContent = roundScore
+      currentScore += dice
+      document.getElementById('current-' + activePlayer).textContent = currentScore
     } else {
       switchPlayer()
     }
@@ -35,13 +35,13 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 document.querySelector('.btn-hold').addEventListener('click', function () {
   if (gamePlaying) {
     // Add player's current score to total score
-    scores[activePlayer] += roundScore
+    totalScores[activePlayer] += currentScore
 
     // Update Total Score
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer]
+    document.querySelector('#score-' + activePlayer).textContent = totalScores[activePlayer]
 
     // Check if player won game
-    if (scores[activePlayer] >= 20) {
+    if (totalScores[activePlayer] >= 60) {
       document.querySelector('#name-' + activePlayer).textContent = 'WINNER'
       document.querySelector('.dice').style.display = 'none'
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
@@ -53,13 +53,13 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
   }
 })
 
-// reset scores & player to 0
+// reset totalScores & player to 0
 document.querySelector('.btn-new').addEventListener('click', startGame)
 
 // switch active player
 function switchPlayer () {
   activePlayer === 0 ? activePlayer = 1 : activePlayer = 0
-  roundScore = 0
+  currentScore = 0
   document.getElementById('current-0').textContent = '0'
   document.getElementById('current-1').textContent = '0'
   document.querySelector('.player-0-panel').classList.toggle('active')
@@ -69,8 +69,8 @@ function switchPlayer () {
 
 // initialize game
 function startGame () {
-  scores = [0, 0]
-  roundScore = 0
+  totalScores = [0, 0]
+  currentScore = 0
   activePlayer = 0
   gamePlaying = true
 
