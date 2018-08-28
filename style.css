@@ -135,6 +135,7 @@ i {
 
 .btn-new { top: 45px;}
 .btn-roll { top: 403px;}
+.btn-next { top: 403px; display: none;}
 .btn-hold { top: 467px;}
 
 .dice {
