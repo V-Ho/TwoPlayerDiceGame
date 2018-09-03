@@ -1,8 +1,8 @@
 # TwoPlayerDiceGame
 
 ## Background
-This game is written entirely in Javascript, and rendered with HTML
-To run, open index.html with your browser, the game should start
+- This game is written entirely in Javascript, and rendered with HTML
+- To run, open index.html with your browser, the game should start
 
 ## Rules of the Game
 - The game has 2 players, playing in rounds
