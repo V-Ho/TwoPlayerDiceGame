@@ -1,5 +1,9 @@
 # TwoPlayerDiceGame
 
+## Background
+This game is written entirely in Javascript, and rendered with HTML
+To run, open index.html with your browser, the game should start
+
 ## Rules of the Game
 - The game has 2 players, playing in rounds
 - Each turn, the player rolls the dice as many times as they want
